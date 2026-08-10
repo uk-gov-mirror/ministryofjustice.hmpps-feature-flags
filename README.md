@@ -85,6 +85,34 @@ go through a Git PR:
 > [!TIP]
 > You don't need to edit YAML by hand. The Flipt UI has a **Create branch** feature that lets you make flag changes visually on a new branch. Once you're happy with the changes, raise a PR from that branch for your team to review.
 
+### Skipping PR approval (prod self-service)
+
+Some teams don't want an approval step between them and a prod flag change. 
+A namespace can opt in to self-service, which keeps the PR flow (and all the 
+CI checks) but removes the need for a human review. To opt in, raise a PR that:
+
+1. Adds `prodSelfService: true` to `flags/prod/{namespace}/access.yml`
+2. Adds a line for your namespace to the self-service section at the bottom of 
+   `.github/CODEOWNERS` - a path with no owner, e.g. `flags/*/my-namespace/`
+
+That PR needs approval from the feature flag admins - it's the last one that does.
+
+From then on, the flag-approval bot approves any PR that only changes 
+`features.yml` files in opted-in namespaces, and comments 
+"Namespace has prod self-approval". Raise your PR, wait for the checks, merge.
+
+The bot only steps in when it's safe to:
+
+- Any other file in the PR (`access.yml`, another team's namespace, anything 
+  outside `flags/`) means no auto-approval - the bot instead comments with the 
+  team whose approval is needed
+- Opt-ins are read from `main`, so a PR can't opt itself in
+- The PR author needs write access to this repo
+
+This is a trust-based scheme: it assumes nobody with write access is actively 
+trying to game the review process. If that assumption ever stops holding, the 
+approval needs to move to a dedicated GitHub App identity instead.
+
 ## Evaluating flags
 
 The recommended approach is to use 
