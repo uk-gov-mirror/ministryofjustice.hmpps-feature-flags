@@ -109,10 +109,6 @@ The bot only steps in when it's safe to:
 - Opt-ins are read from `main`, so a PR can't opt itself in
 - The PR author needs write access to this repo
 
-This is a trust-based scheme: it assumes nobody with write access is actively 
-trying to game the review process. If that assumption ever stops holding, the 
-approval needs to move to a dedicated GitHub App identity instead.
-
 ## Evaluating flags
 
 The recommended approach is to use 
