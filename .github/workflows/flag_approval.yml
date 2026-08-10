@@ -136,7 +136,7 @@ jobs:
 
               const teamList = [...teams].map((team) => `@ministryofjustice/${team}`).join(', ')
 
-              body = `${MARKER}\n⏳ **Needs approval from ${teamList}** - this PR touches files that require review (CODEOWNERS enforces this).`
+              body = `${MARKER}\n⏳ **Needs approval from ${teamList}** - this PR touches files that require a human review.`
             }
 
             const comments = await github.paginate(github.rest.issues.listComments, {

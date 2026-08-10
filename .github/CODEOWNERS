@@ -16,9 +16,3 @@ flags/*/hmpps-electronic-monitoring-data-insights/  @ministryofjustice/hmpps-em-
 flags/*/manage-people-on-probation-ui/              @ministryofjustice/hmpps-manage-people-on-probation-dev
 flags/*/prisoner-finance/                           @ministryofjustice/hmpps-prisoner-finance-dev
 flags/*/probation-integration/                      @ministryofjustice/probation-integration
-
-# Prod self-service namespaces (see README)
-# A namespace with `prodSelfService: true` also needs a line here with no
-# owner - it clears ownership so the flag-approval bot's review can satisfy
-# branch protection. Example:
-# flags/*/my-namespace/

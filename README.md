@@ -79,7 +79,7 @@ go through a Git PR:
 2. Add or update your flags in `flags/prod/{namespace}/features.yml`
 3. Run `make flags-lint` to validate your changes
 4. Push the branch and raise a PR
-5. Get approval from your team (CODEOWNERS enforces team-level review)
+5. Get approval from your team (CODEOWNERS requests the review automatically)
 6. Merge to `main` — the change will deploy automatically through dev -> preprod -> prod
 
 > [!TIP]
@@ -89,13 +89,10 @@ go through a Git PR:
 
 Some teams don't want an approval step between them and a prod flag change. 
 A namespace can opt in to self-service, which keeps the PR flow (and all the 
-CI checks) but removes the need for a human review. To opt in, raise a PR that:
+CI checks) but removes the need for a human review. To opt in, raise a PR 
+adding `prodSelfService: true` to `flags/prod/{namespace}/access.yml`.
 
-1. Adds `prodSelfService: true` to `flags/prod/{namespace}/access.yml`
-2. Adds a line for your namespace to the self-service section at the bottom of 
-   `.github/CODEOWNERS` - a path with no owner, e.g. `flags/*/my-namespace/`
-
-That PR needs approval from the feature flag admins - it's the last one that does.
+That PR needs a human approval - it's the last one that does.
 
 From then on, the flag-approval bot approves any PR that only changes 
 `features.yml` files in opted-in namespaces, and comments 
